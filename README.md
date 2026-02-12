@@ -6,6 +6,24 @@ A simple distributed voting application that runs across multiple Docker contain
 
 ![Architecture diagram](architecture.excalidraw.png)
 
+```mermaid
+flowchart LR
+  subgraph frontend [Frontend]
+    Vote[Vote - Python/Flask]
+    Result[Result - Node.js]
+  end
+  subgraph backend [Backend]
+    Redis[(Redis)]
+    Worker[Worker - .NET 7]
+    DB[(PostgreSQL)]
+  end
+  Vote --> Redis
+  Redis --> Worker
+  Worker --> DB
+  DB --> Result
+  Vote --> Result
+```
+
 - **[Vote](vote/)** — Python (Flask) web app; lets you vote between two options and pushes votes to Redis
 - **[Redis](https://hub.docker.com/_/redis/)** — Collects new votes in a list; consumed by the worker
 - **[Worker](worker/)** — .NET 7 service that reads votes from Redis and stores them in Postgres
