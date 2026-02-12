@@ -1,4 +1,4 @@
-# Example Voting App
+# Distributed voting app
 
 A simple distributed voting application that runs across multiple Docker containers. Users choose between two options (e.g. "cloud" vs "Kubernetes"); votes are queued in Redis, processed by a worker into PostgreSQL, and the result UI shows live tallies via WebSockets.
 
